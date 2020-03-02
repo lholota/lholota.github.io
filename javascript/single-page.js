@@ -19,19 +19,7 @@
 
             return false;
         });
-
-        /***CLIENTS SLIDER***/
-        new Swiper('.swiper-container-portfolios', {
-            pagination: '.swiper-pagination-portfolios',
-            a11y: true,
-            keyboardControl: true,
-            autoHeight: true,
-            speed: 800,
-            paginationClickable: true
-        });
-
-
-    });
+     });
 
 
      jQuery(window).on('load', function () {

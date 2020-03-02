@@ -65,136 +65,74 @@
             });
         }
 
-        function initPortfolio() {
-
-            /***PORTFOLIO GALLERY***/
-            var all = '#a,#b,#c';
-            var afterFirst = '#b,#c';
-            var addButton = '#add-more';
-            var addButtonIcon = '#port-add-icon';
-            var otherOption = 'a.cate';
-            var allOption = 'a#all-sample';
-
-            $(afterFirst).addClass('hide');
-            $(addButton).addClass('x');
-
-            $(allOption).on('click', function () {
-                $(addButton).removeClass('hide').addClass('x');
-                $(all).removeClass('tab-pane');
-                $(afterFirst).addClass('hide');
-                $(addButtonIcon).addClass('fa-plus').removeClass('fa-arrow-up');
-            });
-            $(otherOption).on('click', function () {
-                $(addButton).addClass('hide x');
-                $(afterFirst).removeClass('hide');
-                $(all).addClass('tab-pane');
-                $(addButtonIcon).addClass('fa-plus').removeClass('fa-arrow-up');
-            });
-            $(addButton).on('click', function () {
-                if ($(addButton).hasClass('x')) {
-                    $(all).removeClass('tab-pane hide');
-                    $(addButton).removeClass('x');
-                    $(addButtonIcon).removeClass('fa-plus').addClass('fa-arrow-up');
-                } else {
-                    $(afterFirst).addClass('hide');
-                    $(addButton).addClass('x');
-                    $(addButtonIcon).addClass('fa-plus').removeClass('fa-arrow-up');
-                }
-            });
-
-            /***PORTFOLIO ANIMATION***/
-            $('li.list-shuffle,#add-more').on('click', function () {
-                $("div.inLeft")
-                    .removeClass('InLeft')
-                    .hide()
-                    .addClass('InLeft')
-                    .show();
-                $("div.inRight")
-                    .removeClass('InRight')
-                    .hide()
-                    .addClass('InRight')
-                    .show();
-            });
-
-            /***MAGNIFIC POPUP***/
-            $('.popup-image').magnificPopup({
-                type: 'image',
-                removalDelay: 160, //delay removal by X to allow out-animation
-                callbacks: {
-                    beforeOpen: function () {
-                        // just a hack that adds mfp-anim class to markup
-                        this.st.image.markup = this.st.image.markup.replace('mfp-figure', 'mfp-figure mfp-with-anim');
-                        this.st.mainClass = this.st.el.attr('data-effect');
-                    }
-                },
-                closeOnContentClick: true,
-                midClick: true
-            });
-            /***MAGNIFICENT POPUP VIDEO***/
-            $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-                disableOn: 700,
-                type: 'iframe',
-                mainClass: 'mfp-fade',
-                removalDelay: 160,
-                preloader: false,
-                fixedContentPos: false
-            });
-        }
-
         function initSkills() {
             /***SKILLS***/
-            $('div.skillbar').each(function () {
-                $(this).find('div.skillbar-bar').css({
-                    width: $(this).attr('data-percent')
-                });
+            am4core.ready(function() {
+                // Themes begin
+                am4core.useTheme(am4themes_material);
+                am4core.useTheme(am4themes_animated);
+
+                var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud); 
+                var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+
+                series.dataFields.word = "tag";
+                series.dataFields.value = "weight"; 
+                series.angles = [0,0,0,0,90]
+                series.labels.template.fill = am4core.color("#fff");
+                
+                chart.preloader.disabled = true;
+
+                series.data = [
+                { "weight":4,"tag":"AWS"},
+                { "weight":4,"tag":"Docker"},
+                { "weight":4,"tag":"DevOps"},
+                { "weight":3,"tag":"Azure"},
+                { "weight":3,"tag":"C#"},
+                { "weight":3,"tag":".NET Core"},
+                { "weight":3,"tag":"Product ownership"},
+                { "weight":3,"tag":"DNS"},
+                { "weight":3,"tag":"Cloud architecture"},
+                { "weight":3,"tag":"Security"},
+                { "weight":2,"tag":"React"},
+                { "weight":2,"tag":"MongoDB"},
+                { "weight":2,"tag":"Scrum"},
+                { "weight":2,"tag":"Automation"},
+                { "weight":2,"tag":"Terraform"},
+                { "weight":2,"tag":"Kubernetes"},
+                { "weight":2,"tag":"ECS"},
+                { "weight":2,"tag":"AWS Lambda"},
+                { "weight":1,"tag":"Java"},
+                { "weight":1,"tag":"JavaScript"},
+                { "weight":1,"tag":"TypeScript"},
+                { "weight":1,"tag":"Angular"},
+                { "weight":1,"tag":"ASP.NET MVC"},
+                { "weight":1,"tag":"Google Cloud"},
+                { "weight":1,"tag":"Docker Swarm"},
+                { "weight":1,"tag":"Azure Functions"},
+                { "weight":1,"tag":"Akamai"},
+                { "weight":1,"tag":"CloudFlare"},
+                { "weight":1,"tag":"XML"},
+                { "weight":1,"tag":"Git"},
+                { "weight":1,"tag":"Jenkins"},
+                { "weight":1,"tag":"CircleCI"},
+                { "weight":1,"tag":"GitHub Actions"},
+                { "weight":1,"tag":"AppVeyor"},
+                { "weight":1,"tag":"MS SQL"},
+                { "weight":1,"tag":"Postgres"},
+                { "weight":1,"tag":"AWS DynamoDB"},
+                { "weight":1,"tag":"Azure Container Service"},
+                { "weight":1,"tag":"Azure Storage"},
+                { "weight":1,"tag":"S3"},
+                { "weight":1,"tag":"Route53"},
+                { "weight":1,"tag":"Powershell"},
+                { "weight":1,"tag":"Bash"},
+                { "weight":1,"tag":"Linux"},
+                { "weight":1,"tag":"Software defined networking"},
+                { "weight":1,"tag":"HTML5"},
+                { "weight":1,"tag":"CSS"}                                
+                ];
             });
         }
-
-        function initClientsSliders() {
-
-            /***CLIENTS LOGO SLIDER***/
-            var $clientcarousel = $('ul#clients-list');
-            var clients = $clientcarousel.children().length;
-            var clientwidth = (clients * 140); // 140px width for each client item
-            $clientcarousel.css('width', clientwidth);
-
-            var rotating = true;
-            var clientspeed = 1800;
-            setInterval(rotateClients, clientspeed);
-
-            $(document).on({
-                mouseenter: function () {
-                    rotating = false;
-                    // Turn off rotation when hovering
-                },
-                mouseleave: function () {
-                    rotating = true;
-                }
-            }, '#clients');
-
-            function rotateClients() {
-                if (rotating !== false) {
-                    var $first = $('ul#clients-list').find('li:first');
-                    $first.animate({'margin-left': '-140px'}, 2000, function () {
-                        $first.remove().css({'margin-left': '0px'});
-                        $('ul#clients-list').find('li:last').after($first);
-                    });
-                }
-            }
-
-
-            /***CLIENTS QUOTE SLIDER***/
-            var swiper =  new Swiper('.swiper-container-clients', {
-                pagination: '.swiper-pagination-clients',
-                a11y: true,
-                keyboardControl: true,
-                autoHeight: true,
-                speed: 800,
-                paginationClickable: true
-            });
-
-        }
-
 
         function initVideoPlayAndClose() {
             /***VIDEO PLAY BUTTON***/
@@ -238,110 +176,6 @@
             });
         }
 
-        function initMapsNormal() {
-            var mapOptions = {
-                zoom: 17,
-                center: new google.maps.LatLng(51.5287352, -0.3817831),
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                scrollwheel: false,
-                disableDefaultUI: false
-            };
-
-            var myMap = new google.maps.Map(document.getElementById('myMap'), mapOptions);
-
-            var normal = new MarkerWithLabel({
-                position: myMap.getCenter(),
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 0
-                },
-                map: myMap,
-                labelAnchor: new google.maps.Point(10, 10),
-                labelClass: "map-label", // The CSS class for the label
-                draggable: false
-
-            });
-        }
-
-        function initMapsDark() {
-            var styles = [{
-                "featureType": "all",
-                "elementType": "labels.text.fill",
-                "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]
-            }, {
-                "featureType": "all",
-                "elementType": "labels.text.stroke",
-                "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]
-            }, {
-                "featureType": "all",
-                "elementType": "labels.icon",
-                "stylers": [{"visibility": "off"}]
-            }, {
-                "featureType": "administrative",
-                "elementType": "geometry.fill",
-                "stylers": [{"color": "#000000"}, {"lightness": 20}]
-            }, {
-                "featureType": "administrative",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]
-            }, {
-                "featureType": "landscape",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 20}]
-            }, {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 21}]
-            }, {
-                "featureType": "road.highway",
-                "elementType": "geometry.fill",
-                "stylers": [{"color": "#000000"}, {"lightness": 17}]
-            }, {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]
-            }, {
-                "featureType": "road.arterial",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 18}]
-            }, {
-                "featureType": "road.local",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 16}]
-            }, {
-                "featureType": "transit",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 19}]
-            }, {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [{"color": "#000000"}, {"lightness": 17}]
-            }];
-            var mapOptions = {
-                zoom: 17,
-                center: new google.maps.LatLng(51.5287352, -0.3817831),
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                scrollwheel: false,
-                disableDefaultUI: false,
-                styles: styles //black n white
-            };
-
-            var myMap = new google.maps.Map(document.getElementById('myMap'), mapOptions);
-
-            var dark = new MarkerWithLabel({
-                position: myMap.getCenter(),
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 0
-                },
-                map: myMap,
-                labelAnchor: new google.maps.Point(10, 10),
-                labelClass: "map-label", // The CSS class for the label
-                draggable: false
-
-            });
-        }
-
         function initMail() {
             /***MAIL SCRIPT***/
             $('form#contact-form').on('submit', function (e) {
@@ -377,14 +211,9 @@
         initNav();               //for main NAV
         initSmoothScroll();      // enables SmoothScroll
         initScrollToTop();       // Smooth Scroll To Top
-        initPortfolio();         // Initializes Portfolios Gallery
-        initSkills();            // Sets Skills Bar Width
-        initClientsSliders();    // Initializes Clients Sliders
+        initSkills();
         initVideoPlayAndClose(); // Video Play and Close Functionality
         initMail();              // Mail Initialization
-        initMapsNormal();        // Enable For Normal Map
-        //initMapsDark();          // Enable For Dark Map
-
     });
 
 
@@ -402,12 +231,7 @@
         sr.reveal(commonCards, {duration: 1100});
         sr.reveal('#about-card,.map-label', {duration: 1400, delay: 500});
         sr.reveal('#v-card-holder', {duration: 1400, distance: '150px'});
-        sr.reveal('.skillbar-bar', {duration: 1800, delay: 300, distance: '0'});
-        
-
     });
 
 
 })(jQuery);
-
-
