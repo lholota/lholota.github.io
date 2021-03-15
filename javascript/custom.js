@@ -89,7 +89,7 @@
                 { "weight":3,"tag":"Azure"},
                 { "weight":3,"tag":"C#"},
                 { "weight":3,"tag":".NET Core"},
-                { "weight":3,"tag":"Product ownership"},
+                { "weight":4,"tag":"Product ownership"},
                 { "weight":3,"tag":"DNS"},
                 { "weight":3,"tag":"Cloud architecture"},
                 { "weight":3,"tag":"Security"},
@@ -97,7 +97,7 @@
                 { "weight":2,"tag":"MongoDB"},
                 { "weight":2,"tag":"Scrum"},
                 { "weight":2,"tag":"Automation"},
-                { "weight":2,"tag":"Terraform"},
+                { "weight":3,"tag":"Terraform"},
                 { "weight":2,"tag":"Kubernetes"},
                 { "weight":2,"tag":"ECS"},
                 { "weight":2,"tag":"AWS Lambda"},
@@ -113,7 +113,7 @@
                 { "weight":1,"tag":"CloudFlare"},
                 { "weight":1,"tag":"XML"},
                 { "weight":1,"tag":"Git"},
-                { "weight":1,"tag":"Jenkins"},
+                { "weight":2,"tag":"Jenkins"},
                 { "weight":1,"tag":"CircleCI"},
                 { "weight":1,"tag":"GitHub Actions"},
                 { "weight":1,"tag":"AppVeyor"},
@@ -129,7 +129,8 @@
                 { "weight":1,"tag":"Linux"},
                 { "weight":1,"tag":"Software defined networking"},
                 { "weight":1,"tag":"HTML5"},
-                { "weight":1,"tag":"CSS"}                                
+                { "weight":1,"tag":"CSS"},
+                { "weight":2,"tag":"Ansible"}                                
                 ];
             });
         }

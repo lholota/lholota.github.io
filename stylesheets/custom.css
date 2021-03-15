@@ -67,3 +67,7 @@ ul.list-square, ul.list-square > li {
 #v-card-holder #v-card #profile img {
     width: 330px !important;
 }
+
+.card .blog .image img {
+    object-fit: cover;
+}
