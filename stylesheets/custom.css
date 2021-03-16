@@ -72,3 +72,7 @@ ul.list-square, ul.list-square > li {
 #v-card-holder #profile img {
     object-fit: cover;
 }
+
+footer {
+    margin-top: 0 !important;
+}
