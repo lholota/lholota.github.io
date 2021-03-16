@@ -71,3 +71,7 @@ ul.list-square, ul.list-square > li {
 .card .blog .image img {
     object-fit: cover;
 }
+
+footer {
+    margin-top: 0 !important;
+}
